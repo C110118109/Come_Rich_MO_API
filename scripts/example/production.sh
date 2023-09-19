@@ -1,0 +1,15 @@
+#接下來會應用底下的讀寫分離提高SQL效能,SOURCES為寫,REPLICAS為讀
+export SOURCES_HOST=127.0.0.1
+export SOURCES_PORT=5432
+export SOURCES_USER=postgres
+export SOURCES_PASSWORD=
+export SOURCES_DATABASE=replicas_database
+export SOURCES_SSLMODE=disable
+
+export REPLICAS_HOST=127.0.0.1
+export REPLICAS_PORT=5432
+export REPLICAS_USER=
+export REPLICAS_PASSWORD=
+export REPLICAS_DATABASE=
+export REPLICAS_SSLMODE=
+air
