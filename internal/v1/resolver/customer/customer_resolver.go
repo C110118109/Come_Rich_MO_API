@@ -28,6 +28,7 @@ func (r *resolver) List(input *customerModel.Fields) interface{} {
 	}
 
 	output.Pages = util.Pagination(quantity, output.Limit)
+	output.RecordNumbers = quantity
 	err = json.Unmarshal(customersByte, &output.Customers)
 	if err != nil {
 		log.Error(err)
