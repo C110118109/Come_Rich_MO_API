@@ -24,11 +24,11 @@ type Base struct {
 
 // 清單顯示&查詢用
 type Field struct {
-	RawMaterialID string `json:"raw_material_id,omitempty"`
-	MaterialName  string `json:"material_name,omitempty"`
-	Quantity      string `json:"quantity,omitempty"`
-	Percentage    string `json:"percentage,omitempty"`
-	Remark        string `json:"remark,omitempty"`
+	RawMaterialID *string `json:"raw_material_id,omitempty"`
+	MaterialName  string  `json:"material_name,omitempty"`
+	Quantity      string  `json:"quantity,omitempty"`
+	Percentage    string  `json:"percentage,omitempty"`
+	Remark        string  `json:"remark,omitempty"`
 }
 
 type Fields struct {

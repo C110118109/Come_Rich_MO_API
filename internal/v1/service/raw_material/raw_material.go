@@ -1,11 +1,10 @@
-package manu_order
+package raw_material
 
 import (
 	"encoding/json"
 
 	"eirc.app/internal/pkg/log"
-	"eirc.app/internal/pkg/util"
-	model "eirc.app/internal/v1/structure/manu_order"
+	model "eirc.app/internal/v1/structure/raw_material"
 )
 
 func (s *service) Created(input *model.Created) (output *model.Base, err error) {
@@ -25,9 +24,9 @@ func (s *service) Created(input *model.Created) (output *model.Base, err error) 
 		return nil, err
 	}
 
-	output.CreatedAt = util.NowToUTC()
-	output.UpdatedAt = util.NowToUTC()
-	output.IsDeleted = false
+	//output.CreatedAt = util.NowToUTC()
+	//output.UpdatedAt = util.NowToUTC()
+	//output.IsDeleted = false
 
 	marshal, err = json.Marshal(output)
 	if err != nil {
@@ -105,16 +104,15 @@ func (s *service) GetByID(input *model.Field) (output *model.Base, err error) {
 }
 
 func (s *service) Deleted(input *model.Updated) (err error) {
-	field, err := s.Entity.GetByID(&model.Field{ManuOrderID: &input.ManuOrderID,
-		IsDeleted: util.PointerBool(false)})
+	field, err := s.Entity.GetByID(&model.Field{RawMaterialID: &input.RawMaterialID})
 	if err != nil {
 		log.Error(err)
 
 		return err
 	}
 
-	field.UpdatedAt = util.NowToUTC()
-	field.IsDeleted = true
+	//field.UpdatedAt = util.NowToUTC()
+	//field.IsDeleted = true
 	err = s.Entity.Updated(field)
 
 	return err
@@ -122,8 +120,7 @@ func (s *service) Deleted(input *model.Updated) (err error) {
 
 func (s *service) Updated(input *model.Updated) (err error) {
 
-	field, err := s.Entity.GetByID(&model.Field{ManuOrderID: &input.ManuOrderID,
-		IsDeleted: util.PointerBool(false)})
+	field, err := s.Entity.GetByID(&model.Field{RawMaterialID: &input.RawMaterialID})
 	if err != nil {
 		log.Error(err)
 

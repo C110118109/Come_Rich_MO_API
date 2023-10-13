@@ -14,8 +14,8 @@ type Table struct {
 	GoodsName      string               `gorm:"column:goods_name;type:text" json:"goods_name,omitempty"`
 	Identifier     string               `gorm:"column:identifier;type:text" json:"identifier,omitempty"`
 	TotalQuantity  string               `gorm:"column:total_quantity;type:text" json:"total_quantity,omitempty"`
-	CompletionDate time.Time            `gorm:"column:completion_date;type:datetime" json:"completion_date,omitempty"`
-	DateOfIssuance time.Time            `gorm:"column:date_of_issuance;type:datetime" json:"date_of_issuance,omitempty"`
+	CompletionDate string               `gorm:"column:completion_date;type:datetime" json:"completion_date,omitempty"`
+	DateOfIssuance string               `gorm:"column:date_of_issuance;type:datetime" json:"date_of_issuance,omitempty"`
 	CreatedAt      time.Time            `gorm:"column:created_at;type:timestamp" json:"created_at,omitempty"`
 	UpdatedAt      time.Time            `gorm:"column:updated_at;type:timestamp" json:"updated_at,omitempty"`
 	IsDeleted      bool                 `gorm:"column:is_deleted;type:bool" json:"is_deleted,omitempty"`
@@ -29,8 +29,8 @@ type Base struct {
 	GoodsName      string    `json:"goods_name"`
 	Identifier     string    `json:"identifier"`
 	TotalQuantity  string    `json:"total_quantity"`
-	CompletionDate time.Time `json:"completion_date"`
-	DateOfIssuance time.Time `json:"date_of_issuance"`
+	CompletionDate string    `json:"completion_date"`
+	DateOfIssuance string    `json:"date_of_issuance"`
 	CreatedAt      time.Time `json:"created_at"`
 	UpdatedAt      time.Time `json:"updated_at"`
 	IsDeleted      bool      `json:"is_deleted"`
@@ -44,8 +44,8 @@ type Field struct {
 	GoodsName      string    `json:"goods_name,omitempty"`
 	Identifier     string    `json:"identifier,omitempty"`
 	TotalQuantity  string    `json:"total_quantity,omitempty"`
-	CompletionDate time.Time `json:"completion_date,omitempty"`
-	DateOfIssuance time.Time `json:"date_of_issuance,omitempty"`
+	CompletionDate string    `json:"completion_date,omitempty"`
+	DateOfIssuance string    `json:"date_of_issuance,omitempty"`
 	CreatedAt      time.Time `json:"created_at,omitempty"`
 	UpdatedAt      time.Time `json:"updated_at,omitempty"`
 	IsDeleted      *bool     `json:"is_deleted,omitempty"`
@@ -71,8 +71,8 @@ type Created struct {
 	GoodsName      string    `json:"goods_name,omitempty"`
 	Identifier     string    `json:"identifier,omitempty"`
 	TotalQuantity  string    `json:"total_quantity,omitempty"`
-	CompletionDate time.Time `json:"completion_date,omitempty"`
-	DateOfIssuance time.Time `json:"date_of_issuance,omitempty"`
+	CompletionDate string    `json:"completion_date,omitempty"`
+	DateOfIssuance string    `json:"date_of_issuance,omitempty"`
 	CreatedAt      time.Time `json:"created_at,omitempty"`
 	UpdatedAt      time.Time `json:"updated_at,omitempty"`
 	IsDeleted      bool      `json:"is_deleted,omitempty"`
@@ -84,8 +84,8 @@ type Updated struct {
 	GoodsName      string    `json:"goods_name,omitempty"`
 	Identifier     string    `json:"identifier,omitempty"`
 	TotalQuantity  string    `json:"total_quantity,omitempty"`
-	CompletionDate time.Time `json:"completion_date,omitempty"`
-	DateOfIssuance time.Time `json:"date_of_issuance,omitempty"`
+	CompletionDate string    `json:"completion_date,omitempty"`
+	DateOfIssuance string    `json:"date_of_issuance,omitempty"`
 	CreatedAt      time.Time `json:"created_at,omitempty"`
 	UpdatedAt      time.Time `json:"updated_at,omitempty"`
 	IsDeleted      bool      `json:"is_deleted,omitempty"`
