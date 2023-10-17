@@ -52,5 +52,5 @@ func main() {
 	route = routerLogin.GetRoute(route, db)
 	route = routerRawMaterial.GetRoute(route, db)
 
-	log.Fatal(http.ListenAndServe("163.18.18.42:8090", route)) //localhost
+	log.Fatal(http.ListenAndServe("163.18.18.42:8090", route)) //localhost //pkg/build_file/open_file的IP也要改
 }
