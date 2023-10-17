@@ -38,7 +38,7 @@ func (s *service) Created(input *model.Created) (output *model.Base, err error) 
 		return nil, err
 	}
 
-	//output.AccountId = util.GenerateUUID() //隨機產生key
+	output.AccountId = util.GenerateUUID() //隨機產生key
 	output.Pwd = util.Base64BydEncode(password)
 	output.CreatedAt = util.NowToUTC()
 	output.UpdatedAt = util.PointerTime(util.NowToUTC())
@@ -92,7 +92,6 @@ func (s *service) List(input *model.Fields) (quantity int64, output []*model.Bas
 
 		return 0, output, err
 	}
-
 
 	return amount, output, err
 }

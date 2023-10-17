@@ -5,6 +5,7 @@ import (
 )
 
 func (e *entity) Created(input *model.Table) (err error) {
+
 	err = e.db.Model(&model.Table{}).Create(&input).Error
 
 	return err

@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 
 	"eirc.app/internal/pkg/log"
+	"eirc.app/internal/pkg/util"
 	model "eirc.app/internal/v1/structure/raw_material"
 )
 
@@ -27,7 +28,7 @@ func (s *service) Created(input *model.Created) (output *model.Base, err error) 
 	//output.CreatedAt = util.NowToUTC()
 	//output.UpdatedAt = util.NowToUTC()
 	//output.IsDeleted = false
-
+	output.RawMaterialID = util.GenerateUUID() //隨機產生key
 	marshal, err = json.Marshal(output)
 	if err != nil {
 		log.Error(err)

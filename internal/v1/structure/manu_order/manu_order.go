@@ -20,6 +20,8 @@ type Table struct {
 	UpdatedAt      time.Time            `gorm:"column:updated_at;type:timestamp" json:"updated_at,omitempty"`
 	IsDeleted      bool                 `gorm:"column:is_deleted;type:bool" json:"is_deleted,omitempty"`
 	RawMaterial    []*rawMaterial.Table `gorm:"foreignkey:manu_order_id;references:manu_order_id"`
+	// 創建者
+	CreatedBy string `gorm:"column:created_by;type:TEXT;" json:"created_by,omitempty"`
 }
 
 // 結構基底(SHOW/COPY)
@@ -35,6 +37,8 @@ type Base struct {
 	UpdatedAt      time.Time `json:"updated_at"`
 	IsDeleted      bool      `json:"is_deleted"`
 	RawMaterial    []*rawMaterial.Base
+	// 創建者
+	CreatedBy string `json:"created_by"`
 }
 
 // 清單顯示&查詢用
@@ -49,7 +53,8 @@ type Field struct {
 	CreatedAt      time.Time `json:"created_at,omitempty"`
 	UpdatedAt      time.Time `json:"updated_at,omitempty"`
 	IsDeleted      *bool     `json:"is_deleted,omitempty"`
-	RawMaterial    []*rawMaterial.Base
+
+	RawMaterial []*rawMaterial.Base
 }
 
 type Fields struct {
@@ -76,6 +81,8 @@ type Created struct {
 	CreatedAt      time.Time `json:"created_at,omitempty"`
 	UpdatedAt      time.Time `json:"updated_at,omitempty"`
 	IsDeleted      bool      `json:"is_deleted,omitempty"`
+	// 創建者
+	CreatedBy string `json:"created_by,omitempty" swaggerignore:"true"`
 }
 
 type Updated struct {
