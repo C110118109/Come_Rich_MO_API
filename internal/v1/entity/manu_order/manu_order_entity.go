@@ -24,7 +24,7 @@ func (e *entity) List(input *model.Fields) (amount int64, output []*model.Table,
 }
 
 func (e *entity) GetByID(input *model.Field) (output *model.Table, err error) {
-	db := e.db.Model(&model.Table{}).Preload("RawMaterial").Where("manu_order_id = ?", input.ManuOrderID)
+	db := e.db.Model(&model.Table{}).Where("manu_order_id = ?", input.ManuOrderID).Preload("RawMaterial")
 	if input.IsDeleted != nil {
 		db.Where("is_deleted = ?", input.IsDeleted)
 	}

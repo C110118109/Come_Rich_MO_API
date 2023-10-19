@@ -13,7 +13,6 @@ import (
 	routerFile "eirc.app/internal/v1/router/file"
 	routerLogin "eirc.app/internal/v1/router/login"
 	routerManuOrder "eirc.app/internal/v1/router/manu_order"
-	routerRawMaterial "eirc.app/internal/v1/router/raw_material"
 	routerSalesInfo "eirc.app/internal/v1/router/sales_info"
 	accountModel "eirc.app/internal/v1/structure/accounts"
 	fileModel "eirc.app/internal/v1/structure/file"
@@ -50,7 +49,6 @@ func main() {
 	route = routerManuOrder.GetRoute(route, db)
 	route = routerAccount.GetRoute(route, db)
 	route = routerLogin.GetRoute(route, db)
-	route = routerRawMaterial.GetRoute(route, db)
 
 	log.Fatal(http.ListenAndServe("163.18.18.42:8090", route)) //localhost //pkg/build_file/open_file的IP也要改
 }

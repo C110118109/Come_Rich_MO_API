@@ -54,7 +54,7 @@ type Field struct {
 	UpdatedAt      time.Time `json:"updated_at,omitempty"`
 	IsDeleted      *bool     `json:"is_deleted,omitempty"`
 
-	RawMaterial []*rawMaterial.Base
+	RawMaterial []rawMaterial.Base
 }
 
 type Fields struct {
@@ -82,7 +82,8 @@ type Created struct {
 	UpdatedAt      time.Time `json:"updated_at,omitempty"`
 	IsDeleted      bool      `json:"is_deleted,omitempty"`
 	// 創建者
-	CreatedBy string `json:"created_by,omitempty" swaggerignore:"true"`
+	CreatedBy   string `json:"created_by,omitempty" swaggerignore:"true"`
+	RawMaterial []rawMaterial.Base
 }
 
 type Updated struct {
