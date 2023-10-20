@@ -3,6 +3,7 @@ package manu_order
 import (
 	"eirc.app/internal/v1/entity/manu_order"
 	model "eirc.app/internal/v1/structure/manu_order"
+	raw_model "eirc.app/internal/v1/structure/raw_material"
 	"gorm.io/gorm"
 )
 
@@ -11,6 +12,7 @@ type Service interface {
 	Created(input *model.Created) (output *model.Base, err error)
 	List(input *model.Fields) (quantity int64, output []*model.Base, err error)
 	GetByID(input *model.Field) (output *model.Base, err error)
+	GetByRawID(input *raw_model.Field) (output *raw_model.Base, err error)
 	Deleted(input *model.Updated) (err error)
 	Updated(input *model.Updated) (err error)
 }

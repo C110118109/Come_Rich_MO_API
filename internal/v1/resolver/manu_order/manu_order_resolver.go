@@ -1,12 +1,14 @@
 package manu_order
 
 import (
+	"encoding/json"
+	"errors"
+
 	"eirc.app/internal/pkg/code"
 	"eirc.app/internal/pkg/log"
 	"eirc.app/internal/pkg/util"
 	manuOrderModel "eirc.app/internal/v1/structure/manu_order"
-	"encoding/json"
-	"errors"
+	rawModel "eirc.app/internal/v1/structure/raw_material"
 	"gorm.io/gorm"
 )
 
@@ -70,6 +72,29 @@ func (r *resolver) GetByID(input *manuOrderModel.Field) interface{} {
 	return code.GetCodeMessage(code.Successful, output)
 }
 
+func (r *resolver) GetByRawID(input *rawModel.Field) interface{} {
+	//input.IsDeleted = util.PointerBool(false)
+	raw, err := r.ManuOrderService.GetByRawID(input)
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return code.GetCodeMessage(code.DoesNotExist, err)
+		}
+
+		log.Error(err)
+		return code.GetCodeMessage(code.InternalServerError, err)
+	}
+
+	output := &rawModel.Base{}
+	rawByte, _ := json.Marshal(raw)
+	err = json.Unmarshal(rawByte, &output)
+	if err != nil {
+		log.Error(err)
+		return code.GetCodeMessage(code.InternalServerError, err)
+	}
+
+	return code.GetCodeMessage(code.Successful, output)
+}
+
 func (r *resolver) Deleted(input *manuOrderModel.Updated) interface{} {
 	_, err := r.ManuOrderService.GetByID(&manuOrderModel.Field{ManuOrderID: &input.ManuOrderID,
 		IsDeleted: util.PointerBool(false)})
@@ -108,5 +133,6 @@ func (r *resolver) Updated(input *manuOrderModel.Updated) interface{} {
 		log.Error(err)
 		return code.GetCodeMessage(code.InternalServerError, err)
 	}
+
 	return code.GetCodeMessage(code.Successful, manu_order.ManuOrderID)
 }

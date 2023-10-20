@@ -75,7 +75,6 @@ func (p *presenter) List(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, codeMessage)
 }
 
-
 // GetByID
 // @Summary 取得單一使用者
 // @description 取得單一使用者
@@ -99,6 +98,16 @@ func (p *presenter) GetByID(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, codeMessage)
 }
 
+// func (p *presenter) GetByRawID(ctx *gin.Context) {
+// 	rawMaterialID := ctx.Param("rawMaterialID")
+// 	//撈取新物件，套上搜尋值，執行搜尋
+// 	input := &raw_material.Field{}
+// 	input.RawMaterialID = util.PointerString(rawMaterialID)
+
+// 	codeMessage := p.ManuOrderResolver.GetByRawID(input)
+// 	ctx.JSON(http.StatusOK, codeMessage)
+// }
+
 // Delete
 // @Summary 刪除單一使用者
 // @description 刪除單一使用者
@@ -116,8 +125,9 @@ func (p *presenter) Delete(ctx *gin.Context) {
 	// Todo 將UUID改成登入的使用者
 	manuOrderID := ctx.Param("manuOrderID")
 	input := &manu_order.Updated{}
+	//rawinput:=&raw.Updated{}
 	input.ManuOrderID = manuOrderID
-
+	//rawinput.RawMaterialID=rawID
 	codeMessage := p.ManuOrderResolver.Deleted(input)
 	ctx.JSON(http.StatusOK, codeMessage)
 }
@@ -141,6 +151,7 @@ func (p *presenter) Updated(ctx *gin.Context) {
 	//updatedBy := ctx.Value("userId").(string)
 	manuOrderID := ctx.Param("manuOrderID")
 	input := &manu_order.Updated{}
+
 	if err := ctx.ShouldBindJSON(input); err != nil {
 		log.Error(err)
 		ctx.JSON(http.StatusOK, code.GetCodeMessage(code.FormatError, err.Error()))

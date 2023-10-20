@@ -2,6 +2,7 @@ package manu_order
 
 import (
 	model "eirc.app/internal/v1/structure/manu_order"
+	raw_model "eirc.app/internal/v1/structure/raw_material"
 )
 
 func (e *entity) Created(input *model.Table) (err error) {
@@ -34,12 +35,8 @@ func (e *entity) GetByID(input *model.Field) (output *model.Table, err error) {
 	return output, err
 }
 
-func (e *entity) GetByAccount(input *model.Field) (output *model.Table, err error) {
-
-	db := e.db.Model(&model.Table{}).Where("manu_order = ?", input.ManuOrderID)
-	if input.IsDeleted != nil {
-		db.Where("is_deleted = ?", input.IsDeleted)
-	}
+func (e *entity) GetByRawID(input *raw_model.Field) (output *raw_model.Table, err error) {
+	db := e.db.Model(&raw_model.Table{}).Where("raw_material_id = ?", input.RawMaterialID)
 
 	err = db.First(&output).Error
 

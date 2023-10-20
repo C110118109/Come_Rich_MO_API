@@ -10,6 +10,7 @@ type Presenter interface {
 	Created(ctx *gin.Context)
 	List(ctx *gin.Context)
 	GetByID(ctx *gin.Context)
+	// GetByRawID(ctx *gin.Context)
 	Delete(ctx *gin.Context)
 	Updated(ctx *gin.Context)
 }

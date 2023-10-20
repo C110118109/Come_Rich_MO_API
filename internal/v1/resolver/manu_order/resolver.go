@@ -3,6 +3,7 @@ package manu_order
 import (
 	"eirc.app/internal/v1/service/manu_order"
 	model "eirc.app/internal/v1/structure/manu_order"
+	raw_model "eirc.app/internal/v1/structure/raw_material"
 	"gorm.io/gorm"
 )
 
@@ -10,6 +11,7 @@ type Resolver interface {
 	Created(trx *gorm.DB, input *model.Created) interface{}
 	List(input *model.Fields) interface{}
 	GetByID(input *model.Field) interface{}
+	GetByRawID(input *raw_model.Field) interface{}
 	Deleted(input *model.Updated) interface{}
 	Updated(input *model.Updated) interface{}
 }

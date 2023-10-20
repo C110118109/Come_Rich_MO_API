@@ -6,6 +6,7 @@ import (
 	"eirc.app/internal/pkg/log"
 	"eirc.app/internal/pkg/util"
 	model "eirc.app/internal/v1/structure/manu_order"
+	raw_model "eirc.app/internal/v1/structure/raw_material"
 )
 
 func (s *service) Created(input *model.Created) (output *model.Base, err error) {
@@ -25,6 +26,9 @@ func (s *service) Created(input *model.Created) (output *model.Base, err error) 
 		return nil, err
 	}
 
+	for i := range output.RawMaterial {
+		output.RawMaterial[i].RawMaterialID = util.GenerateUUID()
+	}
 	output.ManuOrderID = util.GenerateUUID() //隨機產生key
 	output.CreatedAt = util.NowToUTC()
 	output.UpdatedAt = util.NowToUTC()
@@ -105,6 +109,31 @@ func (s *service) GetByID(input *model.Field) (output *model.Base, err error) {
 	return output, nil
 }
 
+func (s *service) GetByRawID(input *raw_model.Field) (output *raw_model.Base, err error) {
+	field, err := s.Entity.GetByRawID(input)
+	if err != nil {
+		log.Error(err)
+
+		return nil, err
+	}
+
+	marshal, err := json.Marshal(field)
+	if err != nil {
+		log.Error(err)
+
+		return nil, err
+	}
+
+	err = json.Unmarshal(marshal, &output)
+	if err != nil {
+		log.Error(err)
+
+		return nil, err
+	}
+
+	return output, nil
+}
+
 func (s *service) Deleted(input *model.Updated) (err error) {
 	field, err := s.Entity.GetByID(&model.Field{ManuOrderID: &input.ManuOrderID,
 		IsDeleted: util.PointerBool(false)})
@@ -137,7 +166,6 @@ func (s *service) Updated(input *model.Updated) (err error) {
 
 		return err
 	}
-
 	err = json.Unmarshal(marshal, &field)
 	if err != nil {
 		log.Error(err)
