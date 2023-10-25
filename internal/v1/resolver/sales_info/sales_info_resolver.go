@@ -3,7 +3,9 @@ package sales_info
 import (
 	"encoding/json"
 	"errors"
+	"fmt"
 
+	build_file "eirc.app/internal/pkg/build_file"
 	"eirc.app/internal/pkg/code"
 	"eirc.app/internal/pkg/log"
 	"eirc.app/internal/pkg/util"
@@ -91,3 +93,50 @@ func (r *resolver) GetByID(input *salesInfoModel.Field) interface{} {
 
 	return code.GetCodeMessage(code.Successful, frontCustomer)
 }
+
+// 要跟getbyid做結合。
+func (r *resolver) CreateExcel(input *salesInfoModel.Field) interface{} {
+	base, err := r.SalesInfoService.GetByID(input)
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return code.GetCodeMessage(code.DoesNotExist, err)
+		}
+
+		log.Error(err)
+		return code.GetCodeMessage(code.InternalServerError, err)
+	}
+
+	downloadPath := build_file.DemoComeRich(*&base.SalesNo+"_PI", *base)
+
+	//產生excel檔案 呼叫
+	return code.GetCodeMessage(code.Successful, downloadPath)
+}
+
+func (r *resolver) CreatePdf(input *salesInfoModel.Field) interface{} {
+	base, err := r.SalesInfoService.GetByID(input)
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			return code.GetCodeMessage(code.DoesNotExist, err)
+		}
+
+		log.Error(err)
+		return code.GetCodeMessage(code.InternalServerError, err)
+	}
+
+	downloadPath := build_file.DemoComeRich(*&base.SalesNo+"_PI", *base) //excel
+	fmt.Println(downloadPath)
+	//downloadPath = strings.ReplaceAll(downloadPath, "xlsx", "pdf")       //pdf檔名會變成 .pdf
+
+	pdfPath := build_file.Api(*&base.SalesNo + "_PI") //產生Pdf
+
+	//產生excel檔案 呼叫
+	return code.GetCodeMessage(code.Successful, pdfPath)
+}
+
+// func (r *resolver) CreateExcelTry(input *salesInfoModel.Base) interface{} {
+
+// 	downloadPath := build_file.DemoComeRich(*&input.CustomerNo+"_PI", *input)
+
+// 	//產生excel檔案 呼叫
+// 	return code.GetCodeMessage(code.Successful, downloadPath)
+// }

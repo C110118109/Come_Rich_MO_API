@@ -10,6 +10,8 @@ import (
 type Resolver interface {
 	List(input *model.Fields) interface{}
 	GetByID(input *model.Field) interface{}
+	CreateExcel(input *model.Field) interface{}
+	CreatePdf(input *model.Field) interface{}
 }
 
 type resolver struct {

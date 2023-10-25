@@ -9,6 +9,8 @@ import (
 type Presenter interface {
 	List(ctx *gin.Context)
 	GetByID(ctx *gin.Context)
+	CreateExcel(ctx *gin.Context)
+	CreatePdf(ctx *gin.Context)
 }
 
 type presenter struct {

@@ -8,6 +8,7 @@ import (
 	"eirc.app/internal/pkg/util"
 	preset "eirc.app/internal/v1/presenter"
 	salesInfoModel "eirc.app/internal/v1/structure/sales_info"
+
 	"github.com/gin-gonic/gin"
 )
 
@@ -39,4 +40,26 @@ func (p *presenter) GetByID(ctx *gin.Context) {
 
 	codeMessage := p.SalesInfoResolver.GetByID(input)
 	ctx.JSON(http.StatusOK, codeMessage)
+}
+
+func (p *presenter) CreateExcel(ctx *gin.Context) {
+
+	salesNO := ctx.Param("salesNO")
+	input := &salesInfoModel.Field{}
+	input.SalesNo = util.PointerString(salesNO)
+
+	codeMessage := p.SalesInfoResolver.CreateExcel(input)
+	ctx.JSON(http.StatusOK, codeMessage)
+
+}
+
+func (p *presenter) CreatePdf(ctx *gin.Context) {
+
+	salesNO := ctx.Param("salesNO")
+	input := &salesInfoModel.Field{}
+	input.SalesNo = util.PointerString(salesNO)
+
+	codeMessage := p.SalesInfoResolver.CreatePdf(input)
+	ctx.JSON(http.StatusOK, codeMessage)
+
 }
