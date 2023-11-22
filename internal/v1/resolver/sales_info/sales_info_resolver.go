@@ -106,10 +106,12 @@ func (r *resolver) CreateExcel(input *salesInfoModel.Field) interface{} {
 		return code.GetCodeMessage(code.InternalServerError, err)
 	}
 
-	downloadPath := build_file.DemoComeRich(*&base.SalesNo+"_PI", *base)
+	//downloadPath := build_file.DemoComeRich(*&base.SalesNo+"_PI", *base)  //  DemoComeRich
+	filePath, fileName, version := build_file.BuildComrichS3(*&base.SalesNo+"_PI", *base) //  BuildComrichS3
 
 	//產生excel檔案 呼叫
-	return code.GetCodeMessage(code.Successful, downloadPath)
+	//return code.GetCodeMessage(code.Successful, downloadPath) //todo
+	return code.GetCodeMessage(code.Successful, fileName, filePath, version)
 }
 
 func (r *resolver) CreatePdf(input *salesInfoModel.Field) interface{} {
